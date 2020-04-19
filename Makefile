@@ -4,3 +4,6 @@ build:
 
 copy:
 	cp jcli-account-plugin ~/.jenkins-cli/plugins
+
+test:
+	go test ./...

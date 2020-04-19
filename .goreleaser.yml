@@ -38,7 +38,7 @@ checksum:
 snapshot:
   name_template: "{{ .Tag }}-next-{{.ShortCommit}}"
 changelog:
-  skip: true
+  skip: false
   sort: asc
   filters:
     exclude:
