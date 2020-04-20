@@ -2,3 +2,4 @@ jcli-account-plugin
 *.iml
 .idea
 release
+.DS_Store

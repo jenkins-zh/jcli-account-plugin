@@ -1,28 +1,33 @@
 package cmd
 
 import (
+	"crypto/tls"
 	"fmt"
 	"github.com/ghodss/yaml"
+	"github.com/jenkins-zh/jenkins-cli/util"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/ssh"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing/transport"
+	"gopkg.in/src-d/go-git.v4/plumbing/transport/client"
 	githttp "gopkg.in/src-d/go-git.v4/plumbing/transport/http"
 	gitssh "gopkg.in/src-d/go-git.v4/plumbing/transport/ssh"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 // NewAccountCmd create a command to deal with account
 func NewAccountCmd(args []string) (cmd *cobra.Command) {
 	accountCmd := &accountCmd{}
 
-	cmd = &cobra.Command {
-		Use: "jcli account",
+	cmd = &cobra.Command{
+		Use:   "jcli account",
 		Short: "jcli config file account",
-		Long: "jcli config file account",
+		Long:  "jcli config file account",
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			accountCmd.output = cmd.OutOrStdout()
 		},
@@ -31,7 +36,7 @@ func NewAccountCmd(args []string) (cmd *cobra.Command) {
 	cmd.SetOut(os.Stdout)
 
 	// add flags to this command
-	flags := cmd.PersistentFlags();
+	flags := cmd.PersistentFlags()
 	flags.StringVarP(&accountCmd.URL, "url", "", "",
 		"The URL of a git repository")
 	flags.StringVarP(&accountCmd.Username, "username", "u", "",
@@ -45,13 +50,20 @@ func NewAccountCmd(args []string) (cmd *cobra.Command) {
 	flags.StringVarP(&accountCmd.SSHKeyFile, "ssh-key-file", "", sshKeyFile,
 		"SSH key file")
 
+	// add proxy flags
+	flags.StringVarP(&accountCmd.Proxy, "proxy", "", "",
+		"Proxy of connection")
+	flags.StringVarP(&accountCmd.ProxyAuth, "proxy-auth", "", "",
+		"Proxy auth of connection")
+
 	// add sub-commands
 	cmd.AddCommand(NewAccountAddCmd(args, accountCmd),
 		NewAccountUpdateCmd(args, accountCmd),
 		NewAccountSelectCmd(args, accountCmd),
 		NewAccountListCmd(args, accountCmd),
 		NewAccountRemoveCmd(args, accountCmd),
-		NewAccountDocCmd(cmd))
+		NewAccountDocCmd(cmd),
+		NewVersionCmd())
 	return
 }
 
@@ -138,7 +150,7 @@ func (c *accountCmd) getDefaultConfigPath() (configPath string, err error) {
 	return
 }
 
-func (c* accountCmd) setName(cmd *cobra.Command, args []string) (err error) {
+func (c *accountCmd) setName(cmd *cobra.Command, args []string) (err error) {
 	if len(args) > 0 {
 		c.Name = args[0]
 	}
@@ -147,4 +159,30 @@ func (c* accountCmd) setName(cmd *cobra.Command, args []string) (err error) {
 		err = fmt.Errorf("name cannot be empty")
 	}
 	return
+}
+
+func (c *accountCmd) installProtocol() {
+	tr := &http.Transport{
+		TLSClientConfig:    &tls.Config{InsecureSkipVerify: true},
+		ProxyConnectHeader: http.Header{},
+	}
+
+	if err := util.SetProxy(c.Proxy, c.ProxyAuth, tr); err != nil {
+		_, _ = c.output.Write([]byte(fmt.Sprintf("set proxy error %#v\n", err.Error())))
+	}
+
+	// Create a custom http(s) client with your config
+	customClient := &http.Client{
+		// accept any certificate (might be useful for testing)
+		Transport: tr,
+		// 15 second timeout
+		Timeout: 15 * time.Second,
+		// don't follow redirect
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+
+	client.InstallProtocol("http", githttp.NewClient(customClient))
+	client.InstallProtocol("https", githttp.NewClient(customClient))
 }

@@ -107,6 +107,8 @@ github.com/jenkins-zh/jenkins-cli v0.0.0-20200418144021-0712b626da9f h1:sFFhgg4J
 github.com/jenkins-zh/jenkins-cli v0.0.0-20200418144021-0712b626da9f/go.mod h1:Cci+suJ4WJiYsoguVqGvXvTd4UFHjjSXlNtrB1HLxWw=
 github.com/jenkins-zh/jenkins-cli v0.0.0-20200418150728-ec86d0fe6b13 h1:E7Gd+TtJ1EAYjcHxzywVD7x5Lq5dN32fqcMWlAue/0c=
 github.com/jenkins-zh/jenkins-cli v0.0.0-20200418150728-ec86d0fe6b13/go.mod h1:tNlyS+2iCz3+G3cteqHmT8evOL+TET8r56ud5qiwki0=
+github.com/jenkins-zh/jenkins-cli v0.0.0-20200420130654-286bf0a0a6a0 h1:yMSwSJ+T9nPmTEBw7+IG3Nct8czoUlZBKrgiwxhIvmQ=
+github.com/jenkins-zh/jenkins-cli v0.0.0-20200420130654-286bf0a0a6a0/go.mod h1:tNlyS+2iCz3+G3cteqHmT8evOL+TET8r56ud5qiwki0=
 github.com/jenkins-zh/jenkins-cli v0.0.27 h1:eUAIO7knzb8s/T7HxufnS0+9Ew4jMrPu6mTLtO7//jc=
 github.com/jenkins-zh/jenkins-cli v0.0.27/go.mod h1:dJsheSvotudZLOfqP2muGnYuLkzTL/tXfV46iqnTQ08=
 github.com/jessevdk/go-flags v1.4.0/go.mod h1:4FA24M0QyGHXBuZZK/XkWh8h0e1EYbRYJSGM75WSRxI=

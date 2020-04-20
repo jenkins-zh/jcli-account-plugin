@@ -9,19 +9,19 @@ import (
 // NewAccountUpdateCmd create a command to update the account
 func NewAccountUpdateCmd(args []string, accountCmd *accountCmd) (cmd *cobra.Command) {
 	accountUpdateCmd := accountUpdateCmd{
-		Reset: true,
+		Reset:      true,
 		accountCmd: accountCmd,
 	}
 	cmd = &cobra.Command{
-		Use: "update",
-		Short: "update the account",
+		Use:     "update",
+		Short:   "update the account",
 		PreRunE: accountUpdateCmd.preRunE,
-		RunE: accountUpdateCmd.Run,
+		RunE:    accountUpdateCmd.Run,
 	}
 	return
 }
 
-func (c * accountUpdateCmd) preRunE(cmd *cobra.Command, args []string) (err error) {
+func (c *accountUpdateCmd) preRunE(cmd *cobra.Command, args []string) (err error) {
 	err = c.setName(cmd, args)
 	return
 }
@@ -45,7 +45,7 @@ func (c *accountUpdateCmd) Run(cmd *cobra.Command, args []string) (err error) {
 
 		if c.Reset {
 			if err = w.Reset(&git.ResetOptions{
-				Mode:git.HardReset,
+				Mode: git.HardReset,
 			}); err != nil {
 				return
 			}
