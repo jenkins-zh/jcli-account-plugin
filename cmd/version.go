@@ -20,6 +20,6 @@ func NewVersionCmd() (cmd *cobra.Command) {
 func (c *versionCmd) RunE(cmd *cobra.Command, args []string) (err error) {
 	cmd.Printf("Version: %s\n", app.GetVersion())
 	cmd.Printf("Last Commit: %s\n", app.GetCommit())
-	//cmd.Printf("Build Date: %s\n", app.GetDate())
+	cmd.Printf("Build Date: %s\n", app.GetDate())
 	return
 }
