@@ -9,9 +9,9 @@ import (
 func NewVersionCmd() (cmd *cobra.Command) {
 	versionCmd := versionCmd{}
 	cmd = &cobra.Command{
-		Use:     "version",
-		Short:   "Show the version of this plugin",
-		RunE:    versionCmd.RunE,
+		Use:   "version",
+		Short: "Show the version of this plugin",
+		RunE:  versionCmd.RunE,
 	}
 	return
 }
