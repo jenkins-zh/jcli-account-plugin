@@ -1,0 +1,1 @@
+Get knowledge about go-git from [here](https://github.com/src-d/go-git/blob/master/_examples).

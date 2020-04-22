@@ -8,19 +8,18 @@ import (
 	"os"
 )
 
-
 // NewAccountListCmd create a command to list all accounts
 func NewAccountListCmd(args []string, accountCmd *accountCmd) (cmd *cobra.Command) {
 	accountListCmd := accountListCmd{accountCmd}
 	cmd = &cobra.Command{
-		Use: "list",
+		Use:   "list",
 		Short: "List all jcli accounts",
-		RunE: accountListCmd.runE,
+		RunE:  accountListCmd.runE,
 	}
 	return
 }
 
-func (c * accountListCmd) runE(cmd *cobra.Command, args []string) (err error) {
+func (c *accountListCmd) runE(cmd *cobra.Command, args []string) (err error) {
 	var userHome string
 	if userHome, err = homedir.Dir(); err != nil {
 		return

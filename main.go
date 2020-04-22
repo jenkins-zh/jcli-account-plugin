@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func main()  {
+func main() {
 	cmd := inner.NewAccountCmd(os.Args[1:])
 	if err := cmd.Execute(); err != nil {
 		os.Exit(1)

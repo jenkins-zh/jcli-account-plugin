@@ -14,22 +14,22 @@ import (
 func NewAccountSelectCmd(args []string, accountCmd *accountCmd) (cmd *cobra.Command) {
 	accountSelectCmd := accountSelectCmd{accountCmd}
 	cmd = &cobra.Command{
-		Use: "select",
-		Short: "Select a jcli config account as the default one",
+		Use:     "select",
+		Short:   "Select a jcli config account as the default one",
 		PreRunE: accountSelectCmd.PreRunE,
-		RunE: accountSelectCmd.Run,
+		RunE:    accountSelectCmd.Run,
 	}
 	return
 }
 
 // PreRunE do the options checking
-func (c* accountSelectCmd) PreRunE(cmd *cobra.Command, args []string) (err error) {
+func (c *accountSelectCmd) PreRunE(cmd *cobra.Command, args []string) (err error) {
 	err = c.setName(cmd, args)
 	return
 }
 
 // Run is the main point of account select command
-func (c* accountSelectCmd) Run(cmd *cobra.Command, args []string) (err error) {
+func (c *accountSelectCmd) Run(cmd *cobra.Command, args []string) (err error) {
 	var configFile string
 	if configFile, err = c.getDefaultConfigPath(); err != nil {
 		return
@@ -38,7 +38,7 @@ func (c* accountSelectCmd) Run(cmd *cobra.Command, args []string) (err error) {
 	exist := true
 	if _, err = os.Stat(configFile); os.IsNotExist(err) {
 		exist = false
-		if err =ioutil.WriteFile(configFile, []byte{}, 0664); err != nil {
+		if err = ioutil.WriteFile(configFile, []byte{}, 0664); err != nil {
 			return
 		}
 	}
@@ -84,7 +84,7 @@ func (c *accountSelectCmd) getAccountConfig() (data []byte, err error) {
 	}
 
 	config := &accountConfig{}
-	if err =  yaml.Unmarshal(data, &config); err != nil {
+	if err = yaml.Unmarshal(data, &config); err != nil {
 		return
 	}
 

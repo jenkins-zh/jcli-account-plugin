@@ -8,12 +8,15 @@ import (
 
 type (
 	accountCmd struct {
-		URL string
-		Username string
-		Password string
+		URL        string
+		Username   string
+		Password   string
 		SSHKeyFile string
 
 		Name string
+
+		Proxy     string
+		ProxyAuth string
 
 		output io.Writer
 	}
@@ -35,6 +38,10 @@ type (
 		*accountCmd
 	}
 
+	accountStatusCmd struct {
+		*accountCmd
+	}
+
 	accountCommitCmd struct {
 		*accountCmd
 		Message string
@@ -44,13 +51,22 @@ type (
 		*accountCmd
 	}
 
+	accountHistoryCmd struct {
+		*accountCmd
+	}
+
 	accountConfig struct {
 		jcli.Config `yaml:",inline"`
-		Account string `yaml:"account"`
+		Account     string `yaml:"account"`
 	}
 
 	accountDocCmd struct {
 		RootCommand *cobra.Command
-		DocType string
+		DocType     string
+	}
+)
+
+type (
+	versionCmd struct {
 	}
 )

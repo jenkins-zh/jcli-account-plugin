@@ -7,25 +7,24 @@ import (
 	"os"
 )
 
-
 // NewAccountRemoveCmd create a command to remove a account
 func NewAccountRemoveCmd(args []string, accountCmd *accountCmd) (cmd *cobra.Command) {
 	accountRemoveCmd := accountRemoveCmd{accountCmd}
 	cmd = &cobra.Command{
-		Use: "remove",
-		Short: "Remove a jcli account",
+		Use:     "remove",
+		Short:   "Remove a jcli account",
 		PreRunE: accountRemoveCmd.preRunE,
-		RunE: accountRemoveCmd.runE,
+		RunE:    accountRemoveCmd.runE,
 	}
 	return
 }
 
-func (c * accountRemoveCmd) preRunE(cmd *cobra.Command, args []string) (err error) {
+func (c *accountRemoveCmd) preRunE(cmd *cobra.Command, args []string) (err error) {
 	err = c.setName(cmd, args)
 	return
 }
 
-func (c * accountRemoveCmd) runE(cmd *cobra.Command, args []string) (err error) {
+func (c *accountRemoveCmd) runE(cmd *cobra.Command, args []string) (err error) {
 	var userHome string
 	if userHome, err = homedir.Dir(); err != nil {
 		return

@@ -11,15 +11,15 @@ import (
 func NewAccountAddCmd(args []string, accountCmd *accountCmd) (cmd *cobra.Command) {
 	accountAddCmd := accountAddCmd{accountCmd}
 	cmd = &cobra.Command{
-		Use: "add",
-		Short: "Add a account for jcli config",
+		Use:     "add",
+		Short:   "Add a account for jcli config",
 		PreRunE: accountAddCmd.preRunE,
-		RunE: accountAddCmd.Run,
+		RunE:    accountAddCmd.Run,
 	}
 	return
 }
 
-func (c * accountAddCmd) preRunE(cmd *cobra.Command, args []string) (err error) {
+func (c *accountAddCmd) preRunE(cmd *cobra.Command, args []string) (err error) {
 	err = c.setName(cmd, args)
 	return
 }
@@ -34,6 +34,7 @@ func (c *accountAddCmd) Run(cmd *cobra.Command, args []string) (err error) {
 		return
 	}
 
+	c.installProtocol()
 	if _, err = git.PlainOpen(accountDir); err == nil {
 		err = fmt.Errorf("%s is exists", c.Name)
 		return

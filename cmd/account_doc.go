@@ -34,9 +34,9 @@ func NewAccountDocCmd(rootCmd *cobra.Command) (cmd *cobra.Command) {
 		RootCommand: rootCmd,
 	}
 	cmd = &cobra.Command{
-		Use: "doc",
+		Use:   "doc",
 		Short: "Generate documents for jcli account plugin",
-		RunE: accountDocCmd.runE,
+		RunE:  accountDocCmd.runE,
 	}
 
 	flags := cmd.Flags()
@@ -53,7 +53,7 @@ func NewAccountDocCmd(rootCmd *cobra.Command) (cmd *cobra.Command) {
 	return
 }
 
-func (c * accountDocCmd) runE(cmd *cobra.Command, args []string) (err error) {
+func (c *accountDocCmd) runE(cmd *cobra.Command, args []string) (err error) {
 	outputDir := args[0]
 	if err = os.MkdirAll(outputDir, os.FileMode(0755)); err != nil {
 		return

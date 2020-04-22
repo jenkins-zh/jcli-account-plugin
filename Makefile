@@ -7,3 +7,7 @@ copy:
 
 test:
 	go test ./...
+
+fmt:
+	go fmt .
+	gofmt -s -w .
