@@ -38,12 +38,20 @@ type (
 		*accountCmd
 	}
 
+	accountStatusCmd struct {
+		*accountCmd
+	}
+
 	accountCommitCmd struct {
 		*accountCmd
 		Message string
 	}
 
 	accountRemoveCmd struct {
+		*accountCmd
+	}
+
+	accountHistoryCmd struct {
 		*accountCmd
 	}
 

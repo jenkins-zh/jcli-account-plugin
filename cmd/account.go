@@ -62,6 +62,9 @@ func NewAccountCmd(args []string) (cmd *cobra.Command) {
 		NewAccountSelectCmd(args, accountCmd),
 		NewAccountListCmd(args, accountCmd),
 		NewAccountRemoveCmd(args, accountCmd),
+		NewAccountStatusCmd(args, accountCmd),
+		NewAccountCommitCmd(args, accountCmd),
+		NewAccountHistoryCmd(args, accountCmd),
 		NewAccountDocCmd(cmd),
 		NewVersionCmd())
 	return
@@ -109,6 +112,15 @@ func (c *accountCmd) getPullOptions() (pullOptions *git.PullOptions) {
 	return
 }
 
+func (c *accountCmd) getPushOptions() (pushOptions *git.PushOptions) {
+	pushOptions = &git.PushOptions{
+		RemoteName: "origin",
+		Auth: c.getAuth(),
+		Progress: c.output,
+	}
+	return
+}
+
 func (c *accountCmd) getAuth() (auth transport.AuthMethod) {
 	if c.Username != "" {
 		auth = &githttp.BasicAuth{
@@ -117,7 +129,7 @@ func (c *accountCmd) getAuth() (auth transport.AuthMethod) {
 		}
 	}
 
-	if strings.HasPrefix(c.URL, "git@") {
+	if strings.HasPrefix(c.URL, "git@") || c.Username == "" {
 		if sshKey, err := ioutil.ReadFile(c.SSHKeyFile); err == nil {
 			signer, _ := ssh.ParsePrivateKey(sshKey)
 			auth = &gitssh.PublicKeys{User: "git", Signer: signer}
