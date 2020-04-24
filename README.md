@@ -1,3 +1,6 @@
+[![GitHub release](https://img.shields.io/github/release/jenkins-zh/jcli-account-plugin.svg?label=release)](https://github.com/jenkins-zh/jcli-account-plugin/releases/latest)
+![GitHub All Releases](https://img.shields.io/github/downloads/jenkins-zh/jcli-account-plugin/total)
+
 Jenkins CLI account plugin
 
 This plugin allows you put your configuration file of Jenkins CLI into a git repository.
