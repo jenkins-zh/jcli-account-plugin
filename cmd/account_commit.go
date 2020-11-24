@@ -15,7 +15,7 @@ func NewAccountCommitCmd(args []string, accountCmd *accountCmd) (cmd *cobra.Comm
 	cmd = &cobra.Command{
 		Use:     "commit",
 		Short:   "Commit the changes of current account",
-		Long: `Commit and push the changes of current account`,
+		Long:    `Commit and push the changes of current account`,
 		PreRunE: accountCommitCmd.preRunE,
 		RunE:    accountCommitCmd.Run,
 	}
@@ -60,7 +60,7 @@ func (c *accountCommitCmd) Run(cmd *cobra.Command, args []string) (err error) {
 		opts := &git.CommitOptions{
 			All: true,
 			Author: &object.Signature{
-				Name: "jcli",
+				Name:  "jcli",
 				Email: "jcli@github.com",
 			},
 		}
