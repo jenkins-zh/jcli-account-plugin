@@ -3,7 +3,6 @@ package cmd
 import (
 	"crypto/tls"
 	"fmt"
-	"github.com/ghodss/yaml"
 	"github.com/jenkins-zh/jenkins-cli/util"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
@@ -13,6 +12,7 @@ import (
 	"gopkg.in/src-d/go-git.v4/plumbing/transport/client"
 	githttp "gopkg.in/src-d/go-git.v4/plumbing/transport/http"
 	gitssh "gopkg.in/src-d/go-git.v4/plumbing/transport/ssh"
+	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -115,8 +115,8 @@ func (c *accountCmd) getPullOptions() (pullOptions *git.PullOptions) {
 func (c *accountCmd) getPushOptions() (pushOptions *git.PushOptions) {
 	pushOptions = &git.PushOptions{
 		RemoteName: "origin",
-		Auth: c.getAuth(),
-		Progress: c.output,
+		Auth:       c.getAuth(),
+		Progress:   c.output,
 	}
 	return
 }
