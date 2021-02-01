@@ -3,10 +3,10 @@ module github.com/jenkins-zh/jcli-account-plugin
 go 1.13
 
 require (
-	github.com/jenkins-zh/jenkins-cli v0.0.32
+	github.com/jenkins-zh/jenkins-cli v0.0.33
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/spf13/cobra v1.1.1
-	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	golang.org/x/crypto v0.0.0-20201124201722-c8d3bf9c5392
 	gopkg.in/src-d/go-git.v4 v4.13.1
 	gopkg.in/yaml.v2 v2.4.0
 )
