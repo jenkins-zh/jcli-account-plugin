@@ -15,3 +15,5 @@ Jenkins CLI support plugin feature since `v0.0.28`. Please install this plugin b
 jcli config plugin fetch
 jcli config plugin install account
 ```
+
+Browser the code from [GitPod](http://gitpod.io/#https://github.com/jenkins-zh/jcli-account-plugin).
